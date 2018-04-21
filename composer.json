@@ -1,0 +1,25 @@
+{
+    "name": "yidas/yii2-language",
+    "description": "Language extension component for Yii 2 framework",
+    "keywords": ["yii2", "framework", "language", "language-map", "i18n"],
+    "type": "yii2-extension",
+    "license": "MIT",
+    "support": {
+        "issues": "https://github.com/yidas/yii2-language/issues?state=open",
+        "source": "https://github.com/yidas/yii2-language"
+    },
+    "authors": [
+        {
+            "name": "Nick Tsai",
+            "email": "myintaer@gmail.com"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": "~2.0.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "yidas\\components\\": "src"
+        }
+    }
+}
