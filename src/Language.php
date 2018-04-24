@@ -68,6 +68,13 @@ class Language extends Component
     private $_currentLangIndex = null;
 
     /**
+     * Has storage record remark
+     *
+     * @var boolean
+     */
+    private $_hasStorageRecord = false;
+
+    /**
      * Bootstrap
      * 
      * You could register this componet then add to 'bootstrap' in configuration.
@@ -80,6 +87,8 @@ class Language extends Component
         $language = $this->_getFromStorage();
 
         if ($language) {
+            // Has storage record remark
+            $this->_hasStorageRecord = true;
             // Set to current language
             $this->set($language);
         } else {
@@ -137,7 +146,7 @@ class Language extends Component
     }
 
     /**
-     * Set Current Language
+     * Set Current Language synchronised to `\Yii::$app->language`
      *
      * @param string $language Refer to $languages
      * @return bool Result
@@ -180,6 +189,26 @@ class Language extends Component
             // Success
             return true;
         }
+    }
+
+    /**
+     * Check hasStorageRecord
+     *
+     * @return boolean
+     */
+    public function hasStorageRecord()
+    {
+        return $this->_hasStorageRecord;
+    }
+
+    /**
+     * First time coming check, which has no StorageRecord
+     *
+     * @return boolean
+     */
+    public function isFirstCome()
+    {
+        return !($this->_hasStorageRecord);
     }
 
     /**

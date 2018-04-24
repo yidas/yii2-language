@@ -17,6 +17,9 @@ FEATURES
 
 - ***language Mapping** integrated with Yii2 Language*
 
+- ***Session & Cookie** storage support*
+
+- ***Yii2 i18n** support*
 
 ---
 
@@ -50,6 +53,7 @@ Add a component using `yidas\components\Language` with configurations:
 ```php
 return [
     'bootstrap' => ['log', 'lang'],
+    'language' => 'en-US',
     'components' => [
         'lang' => [
             'class' => 'yidas\components\Language',
@@ -120,8 +124,61 @@ echo \Yii::$app->lang->getByMap('html');  // en
 
 ### `set()`
 
-Set Current Language
+Set Current Language synchronised to `\Yii::$app->language`
 
 ```php
 \Yii::$app->lang->set('zh-TW');
 ```
+
+---
+
+IMPLEMENTATION
+--------------
+
+### Controller for Changing Language
+
+You could add a controller or action for changing language like `/language?language=zh-TW`:
+
+```php
+<?php
+
+namespace app\controllers;
+
+use Yii;
+use yii\web\Controller;
+
+/**
+ * The Controller for Language converting
+ */
+class LanguageController extends Controller
+{
+    public function actionIndex($language='')
+    {
+        $result = Yii::$app->lang->set($language);
+        
+        return $this->redirect(Yii::$app->request->referrer ?: Yii::$app->homeUrl);
+    }
+}
+```
+
+### BeforeAction for globally changing language
+
+You could globally set language by handling language setting in the bootstrap of application.
+
+For example, get `GET` parameter to set language in `on beforeAction` function:
+
+```php
+return [
+    'on beforeAction' => function ($event) {
+        // Always fetch language from get-parameter
+        $lang = \Yii::$app->request->get('lang');
+        // Set to given language with get-parameter
+        if ($lang) {
+            $result = \Yii::$app->lang->set($lang);
+        }
+    },
+    ...
+]
+```
+
+After that, by giving `lang` param from any url like `/post/my-article?lang=zh-TW` would change language.
