@@ -130,6 +130,21 @@ Set Current Language synchronised to `\Yii::$app->language`
 \Yii::$app->lang->set('zh-TW');
 ```
 
+### `isFirstCome()`
+
+First time coming check, which has no StorageRecord
+
+Inverse alias with `hasStorageRecord()`
+
+```php
+if (Yii::$app->lang->isFirstCome()) {
+    // Detetmine user ip to set current language
+} 
+else if (Yii::$app->lang->hasStorageRecord()) {
+    // Means !(Yii::$app->lang->isFirstCome())
+}
+```
+
 ---
 
 IMPLEMENTATION
