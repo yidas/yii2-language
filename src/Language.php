@@ -131,7 +131,7 @@ class Language extends Component
      *
      * @param string $map Variable name defined in component
      * @return string Language value from diving $map with current language
-     * @example $this->getByMap('htmlMap');
+     * @example $this->getByMap('html');
      */
     public function getByMap($mapKey)
     {
@@ -143,6 +143,26 @@ class Language extends Component
         }
 
         return isset($this->maps[$mapKey][$index]) ? $this->maps[$mapKey][$index] : null;
+    }
+
+    /**
+     * Set by using customized language value from $map
+     *
+     * @param string $map Variable name defined in component
+     * @param string $mapValue Refer to giving map's values
+     * @return bool Result
+     * @example $this->setByMap('html', 'zh-Hant');
+     */
+    public function setByMap($mapKey, $mapValue)
+    {
+        if (!isset($this->maps[$mapKey])) {
+            
+            throw new Exception("Given map `{$mapKey}` doesn't declared in Language Component", 500);
+        }
+
+        $index = array_search($mapValue, $this->maps[$mapKey]);
+
+        return $this->setByIndex($index);
     }
 
     /**

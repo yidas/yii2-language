@@ -2,11 +2,11 @@
     <a href="https://github.com/yiisoft" target="_blank">
         <img src="https://avatars0.githubusercontent.com/u/993323" height="100px">
     </a>
-    <h1 align="center">Yii2 Language</h1>
+    <h1 align="center">Yii 2 Language Extension</h1>
     <br>
 </p>
 
-Language extension component for Yii 2 framework.
+Yii 2 Framework Language extension with Status Keep and Map
 
 [![Latest Stable Version](https://poser.pugx.org/yidas/yii2-language/v/stable?format=flat-square)](https://packagist.org/packages/yidas/yii2-language)
 [![Latest Unstable Version](https://poser.pugx.org/yidas/yii2-language/v/unstable?format=flat-square)](https://packagist.org/packages/yidas/yii2-language)
@@ -21,6 +21,24 @@ FEATURES
 
 - ***Yii2 i18n** support*
 
+---
+
+OUTLINE
+-------
+
+* [Requirements](#requirements)
+* [Installation](#installation)
+* [Configuration](#configuration)
+* [Usage](#usage)
+    - [get()](#get)
+    - [set()](#set)
+    - [getbymap()](#getbymap)
+    - [setbymap()](#setbymap)
+    - [isFirstCome()](#isfirstcome)
+* [Implementation](implementation)
+    - [Controller for Changing Language](#controller-for-changing-language)
+    - [BeforeAction for globally changing language](#beforeaction-for-globally-changing-language)
+    
 ---
 
 REQUIREMENTS
@@ -75,12 +93,12 @@ return [
         ...
 ```
 
-|property|Description|
-|:-|:-|
-|languages|Supported language list|
-|maps|Customized language map|
-|storage|Storage carrier such as Session and Cookie|
-|storageKey|Storage carrier Key|
+|property|Type|Default|Description|
+|:-|:-|:-|:-|
+|languages|array|As example|Supported language list|
+|maps|array|As example|Customized language map|
+|storage|string|'session'|Storage carrier: 'session' or 'cookie'|
+|storageKey|string|'language'|Storage carrier Key|
 
 ### Bootstrap
 
@@ -98,9 +116,15 @@ return [
 USAGE
 -----
 
-### `get()`
+### get()
 
 Get Current Language
+
+```php
+public string get($map=null)
+```
+
+*Example:*
 
 ```php
 echo \Yii::$app->lang->get();  // en-US
@@ -112,29 +136,63 @@ You could get from map by giving map key as first argument:
 echo \Yii::$app->lang->get('html');  // en
 ```
 
-
-
-### `getByMap()`
-
-Get customized language value from $map
-
-```php
-echo \Yii::$app->lang->getByMap('html');  // en
-```
-
-### `set()`
+### set()
 
 Set Current Language synchronised to `\Yii::$app->language`
+
+```php
+public boolean set($language)
+```
+
+*Example:*
 
 ```php
 \Yii::$app->lang->set('zh-TW');
 ```
 
-### `isFirstCome()`
+### getByMap()
+
+Get customized language value from $map
+
+```php
+public string getByMap($mapKey)
+```
+
+*Example:*
+
+If you have to echo HTML language value by current language:
+
+```php
+echo \Yii::$app->lang->getByMap('html');  // en
+```
+
+### setByMap()
+
+Set by using customized language value from $map
+
+```php
+public boolean setByMap($mapKey, $mapValue)
+```
+
+*Example:*
+
+If you have to set current language by inputting a HTML language value:
+
+```php
+$this->setByMap('html', 'zh-Hant');
+```
+
+### isFirstCome()
 
 First time coming check, which has no StorageRecord
 
 Inverse alias with `hasStorageRecord()`
+
+```php
+public boolean isFirstCome()
+```
+
+*Example:*
 
 ```php
 if (Yii::$app->lang->isFirstCome()) {
