@@ -10,7 +10,7 @@ use yii\base\InvalidConfigException;
  * Language Extension Component
  * 
  * @author  Nick Tsai <myintaer@gmail.com>
- * @version 1.0.1
+ * @version 1.1.0
  */
 class Language extends Component
 {
@@ -117,55 +117,6 @@ class Language extends Component
     }
 
     /**
-     * Get Current Language index
-     *
-     * @return integer
-     */
-    public function getIndex()
-    {
-        return $this->_currentLangIndex;
-    }
-
-    /**
-     * Get customized language value from $map
-     *
-     * @param string $map Variable name defined in component
-     * @return string Language value from diving $map with current language
-     * @example $this->getByMap('html');
-     */
-    public function getByMap($mapKey)
-    {
-        $index = $this->getIndex();
-
-        if (!isset($this->maps[$mapKey])) {
-            
-            throw new Exception("Given map `{$mapKey}` doesn't declared in Language Component", 500);
-        }
-
-        return isset($this->maps[$mapKey][$index]) ? $this->maps[$mapKey][$index] : null;
-    }
-
-    /**
-     * Set by using customized language value from $map
-     *
-     * @param string $map Variable name defined in component
-     * @param string $mapValue Refer to giving map's values
-     * @return bool Result
-     * @example $this->setByMap('html', 'zh-Hant');
-     */
-    public function setByMap($mapKey, $mapValue)
-    {
-        if (!isset($this->maps[$mapKey])) {
-            
-            throw new Exception("Given map `{$mapKey}` doesn't declared in Language Component", 500);
-        }
-
-        $index = array_search($mapValue, $this->maps[$mapKey]);
-
-        return $this->setByIndex($index);
-    }
-
-    /**
      * Set Current Language synchronised to `\Yii::$app->language`
      *
      * @param string $language Refer to $languages
@@ -186,6 +137,57 @@ class Language extends Component
             // Success
             return true;
         }
+    }
+
+    /**
+     * Get Current Language index
+     *
+     * @return integer
+     */
+    public function getIndex()
+    {
+        return $this->_currentLangIndex;
+    }
+
+    /**
+     * Get customized language value from $map
+     *
+     * @param string $map Variable name defined in component
+     * @return string Language value from diving $map with current language
+     * @example If you have to echo HTML language value by current language:
+     *  $this->getByMap('html');
+     */
+    public function getByMap($mapKey)
+    {
+        $index = $this->getIndex();
+
+        if (!isset($this->maps[$mapKey])) {
+            
+            throw new Exception("Given map `{$mapKey}` doesn't declared in Language Component", 500);
+        }
+
+        return isset($this->maps[$mapKey][$index]) ? $this->maps[$mapKey][$index] : null;
+    }
+
+    /**
+     * Set by using customized language value from $map
+     *
+     * @param string $map Variable name defined in component
+     * @param string $mapValue Refer to giving map's values
+     * @return bool Result
+     * @example If you have to set current language by inputting a HTML language value:
+     *  $this->setByMap('html', 'zh-Hant');
+     */
+    public function setByMap($mapKey, $mapValue)
+    {
+        if (!isset($this->maps[$mapKey])) {
+            
+            throw new Exception("Given map `{$mapKey}` doesn't declared in Language Component", 500);
+        }
+
+        $index = array_search($mapValue, $this->maps[$mapKey]);
+
+        return $this->setByIndex($index);
     }
 
     /**
