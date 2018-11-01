@@ -6,7 +6,7 @@
     <br>
 </p>
 
-Yii 2 Framework Language extension with Status Keep and Map
+Yii 2 Framework Language extension with Status Keep and Mapping
 
 [![Latest Stable Version](https://poser.pugx.org/yidas/yii2-language/v/stable?format=flat-square)](https://packagist.org/packages/yidas/yii2-language)
 [![Latest Unstable Version](https://poser.pugx.org/yidas/yii2-language/v/unstable?format=flat-square)](https://packagist.org/packages/yidas/yii2-language)
