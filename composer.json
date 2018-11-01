@@ -1,6 +1,6 @@
 {
     "name": "yidas/yii2-language",
-    "description": "Yii 2 Framework Language extension with Status Keep and Map",
+    "description": "Yii 2 Framework Language extension with Status Keep and Mapping",
     "keywords": ["yii2", "framework", "language", "language-map", "i18n"],
     "type": "yii2-extension",
     "license": "MIT",
